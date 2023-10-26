@@ -23,7 +23,7 @@ type User = {
   name: string;
   age: number;
   isAdmin: boolean;
-  id: string | number;
+  id: string | number; // union type
 };
 
 let user: User;
@@ -52,11 +52,19 @@ function add(a: number, b: number) {
   return result;
 }
 
-type AddFn = (a: number, b: number) => number;
-
-function calculate(a: number, b: number, calcFn: AddFn) {
+function calculate(
+  a: number,
+  b: number,
+  calcFn: (a: number, b: number) => number
+) {
   calcFn(a, b);
 }
+
+// type method
+// type AddFn = (a: number, b: number) => number;
+// function calculate(a: number, b: number, calcFn: AddFn) {
+//   calcFn(a, b);
+// }
 
 calculate(2, 5, add);
 
@@ -76,6 +84,12 @@ creds = {
   email: "test@example.com",
 };
 
+/* 
+  NOT: You can actually use 'interface' to also define function types but you for example, CAN'T use 'interface' to store 
+       union type (which you can with 'type') 
+*/
+
+// for class
 class AuthCredentials implements Credentials {
   email: string;
   password: string;
@@ -84,25 +98,29 @@ class AuthCredentials implements Credentials {
 
 function login(credentials: Credentials) {}
 
-login(new AuthCredentials());
+login(new AuthCredentials()); // calling class
 
-// type Admin = {
-//   permissions: string[]
-// };
+// Using 'type'
+/*
+  type Admin = {
+    permissions: string[]
+  };
 
-// type AppUser = {
-//   userName: string;
-// }
+  type AppUser = {
+    userName: string;
+  }
 
-// type AppAdmin = Admin & AppUser;
+  type AppAdmin = Admin & AppUser;
 
-// let admin: AppAdmin;
+  let admin: AppAdmin;
 
-// admin = {
-//   permissions: ['login'],
-//   userName: 'Abhi'
-// }
+  admin = {
+    permissions: ['login'],
+    userName: 'Abhi'
+  }
+*/
 
+// Using 'interface
 interface Admin {
   permissions: string[];
 }
@@ -120,6 +138,7 @@ admin = {
   userName: "Abhi",
 };
 
+// Literal Types
 type Role = "admin" | "user" | "editor";
 
 let role: Role; // 'admin', 'user', 'editor'
@@ -133,6 +152,13 @@ function performAction(action: string | number, role: Role) {
     // ...
   }
 }
+
+//  Generic Types
+/* 
+  NOT: 'Works together' simply means that a type(like 'Array') needs
+  extra information ( -> e.g., the type of the values that should be
+  stored in the array). 
+*/
 
 let roles: Array<Role>;
 roles = ["admin", "editor"];
