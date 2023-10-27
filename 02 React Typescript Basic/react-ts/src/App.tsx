@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Header from "./component/Header";
-import goalsImage from "./assets/goals.jpg";
 import CourseGoalList from "./component/CourseGoalList";
-import "./App.css";
 import NewGoal from "./component/NewGoal";
+import goalsImage from "./assets/goals.jpg";
+import "./App.css";
 
 export interface ICourseGoal {
   title: string;
